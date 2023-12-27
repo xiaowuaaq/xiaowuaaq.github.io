@@ -1,45 +1,44 @@
 <!DOCTYPE html>
-< html lang = “en” >
-<头>
-    <元字符集= “UTF-8” >
-    <元名称= “视口” 内容= “宽度=设备宽度，初始比例=1.0” >
-    < title >加载中... </ title >
-</头>
-<正文>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载中...</title>
+</head>
+<body>
 
-    <脚本>
-        // 获取URL参数值的函数
-        函数 getUrlParameter (名称)  {
-            名字=名字。代替（/[\[]/，' \\ [' ）。代替（/[\]]/，' \\ ]' ） ;
-            var  regex = new RegExp ( '[ \\ ?&]' + name + '=([^&#]*)' ) ;
-            var 结果= 正则表达式。exec (位置.搜索) ;
-            返回结果 === null ? '' : decodeURIComponent (结果[ 1 ] .replace ( /\+/g , ' ' ) ) ;
+    <script>
+
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         }
 
-        // 获取id参数值
-        var  id = getUrlParameter ( 'id' ) ;
+        var id = getUrlParameter('id');
 
-        // 如果id参数值存在
-        如果 （ id ） {
-            // 获取JSON数据
-            获取（'https://auth.mcoud.cn/ud/01/url.json' ）
-                。然后（响应=>响应.json （））
-                。然后（数据=> {
-                    // 假设JSON数据的结构为 { "url": "targetURL" }
-                    if  (数据 && 数据.url )  {
-                        // 在新标签中打开目标URL
-                        窗户。open ( data.url , ' _blank' ) ;
-                    } 别的 {
-                        安慰。error ( '无法获取有效的URL数据' ) ;
+      
+        if (id) {
+        
+            fetch('https://auth.mcoud.cn/ud/01/url.json')
+                .then(response => response.json())
+                .then(data => {
+                    
+                    if (data && data.url) {
+                     
+                        window.open(data.url, '_blank');
+                    } else {
+                        console.error('数据失败');
                     }
-                } )
-                。捕获（错误=> {
-                    安慰。error ( '发生错误：' , error ) ;
-                }  ) ;
-        }另外{
-            安慰。error  (  '未提供id参数'  ) ;
+                })
+                .catch(error => {
+                    console.error('发生错误：', error);
+                });
+        } else {
+            console.error('未提供');
         }
-    << /脚本>
+    </script>
 
-<<
-</html> _ _
+</body>
+</html>
