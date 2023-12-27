@@ -18,16 +18,13 @@
 
         var id = getUrlParameter('id');
 
-      
         if (id) {
-        
             fetch('https://auth.mcoud.cn/ud/01/url.json')
                 .then(response => response.json())
                 .then(data => {
-                    
                     if (data && data.url) {
                      
-                        window.open(data.url, '_blank');
+                        window.location.href = data.url;
                     } else {
                         console.error('数据失败');
                     }
