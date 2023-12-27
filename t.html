@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载中...</title>
+</head>
+<body>
+
+    <script>
+        // 获取URL参数值的函数
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // 获取id参数值
+        var id = getUrlParameter('id');
+
+        // 如果id参数值存在
+        if (id) {
+            // 获取JSON数据
+            fetch('http://auth.mcoud.cn/ud/01/url.json')
+                .then(response => response.json())
+                .then(data => {
+                    // 假设JSON数据的结构为 { "url": "目标URL" }
+                    if (data && data.url) {
+                        // 在新标签中打开目标URL
+                        window.open(data.url, '_blank');
+                    } else {
+                        console.error('无法获取有效的URL数据');
+                    }
+                })
+                .catch(error => {
+                    console.error('发生错误：', error);
+                } ) ;
+        } 别的 {
+            安慰。error ( '未提供id参数' ) ;
+        }
+    </脚本>
+
+</正文>
+</html> _ _
